@@ -1,0 +1,133 @@
+﻿
+@model IEnumerable<CopaDeVerdade.Models.Time>
+
+
+
+@if (!string.IsNullOrEmpty(ViewBag.Mensagem))
+{
+    <script>
+        if (window.confirm('@ViewBag.Mensagem')) {
+            window.location.href = "/";
+        } else {
+            window.location.href = "/";
+        }
+    </script>
+}
+else
+{
+    @using (Html.BeginForm("GerenciarTorneio", "Copa", FormMethod.Post))
+    {
+        <div class="container">
+            <div class="row">
+                <span> Semi Final 1</span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-2">
+                    <span>Vencedor</span>
+                </div>
+                <div class="col-sm-2">
+                    <select id="times_chave1" onblur="RemoveSelecionadoChave1()" class="form-control">
+                        @foreach (var item in Model)
+                        {
+                            <option>@item.Nome</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <span> Semi Final 2</span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-2">
+                    <span>Vencedor</span>
+                </div>
+                <div class="col-sm-2">
+                    <select id="times_chave2" onblur="RemoveSelecionadoChave2()" class="form-control">
+                        @foreach (var item in Model)
+                        {
+                            <option>@item.Nome</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <span> Final</span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-2">
+                    <span>Campeão</span>
+                </div>
+                <div class="col-sm-2">
+                    <select id="campeao" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary" onclick="AnunciarCampeao()">Salvar</button>
+
+                </div>
+                <div class="col-sm-2">
+                    <a href="/Copa/" class="btn btn-primary">Voltar</a>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <script>
+
+        function AnunciarCampeao() {
+            let campeao = document.getElementById("campeao");
+            alert('O vencedor do Torneio é : ' + campeao.value);
+        }
+
+        function RemoveSelecionadoChave1() {
+            var selectobject = document.getElementById("times_chave2");
+
+            var vencedorChave1 = document.getElementById("times_chave1").value;
+
+            for (var i = 0; i < selectobject.length; i++) {
+                if (selectobject.options[i].value == vencedorChave1)
+                    selectobject.remove(i);
+            }
+        }
+
+
+        function RemoveSelecionadoChave2() {
+            var selectobject = document.getElementById("campeao");
+            var array = [];
+            var vencedorChave1 = document.getElementById("times_chave1").value;
+            var vencedorChave2 = document.getElementById("times_chave2").value;
+
+            array.push(vencedorChave1);
+            array.push(vencedorChave2);
+
+            for (var i = 0; i < array.length; i++) {
+
+                var option = document.createElement("option");
+
+                option.text = array[i];
+                option.value = array[i];
+
+                selectobject.appendChild(option);
+
+            }
+
+
+
+
+
+        }
+
+    </script>
+
+
+}
+

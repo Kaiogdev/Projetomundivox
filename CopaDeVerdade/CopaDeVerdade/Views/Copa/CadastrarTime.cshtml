@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CopaDeVerdade.Models.Time>
+
+@using (Html.BeginForm("CadastrarTime", "Copa", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <label> Time </label>
+            </div>
+            <div class="col-sm-2">
+                <input type="text" id="time" name="time" class="form-control" required/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+
+        </div>
+    </div>
+
+}
+<br />
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Nome do Time</th>
+    </tr>
+
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nome</td>
+            </tr>
+        }
+    }
+</table>
+
+<div class="row">
+    <div class="col-sm-2">
+        <a href="/" class="btn btn-primary">Voltar</a>
+    </div>
+</div>
+
+
+
+
